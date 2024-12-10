@@ -25,7 +25,7 @@ As of the time of writing, although ESP32, ESP32-S2, ESP32-S3, ESP32-C61, and ES
 
 ## 2. ESP32 modules and PSRAM
 
-To know which ESP32 modules contain PSRAM we have to undestand how modules part nummber are formed. Let’s use as an example the moduel whose part number is **ESP32-S3N8R8**
+To know which ESP32 modules contain PSRAM we have to understand how module part numbers are formed. As an example, let’s use the module whose part number is **ESP32-S3N8R8**
 
 | Field           | Contents | Meaning             |
 |:---------------:|:--------:|:-------------------:|
@@ -54,7 +54,7 @@ ESP32 can manage PSRAM of capacities up 32Mbytes depending on SoCs series.
 
 Espressif currently offers some PSRAM models:
 
-| Part number  | Memory Capacity | Operationg Voltage |
+| Part number  | Memory Capacity | Operating Voltage |
 |:------------:|:---------------:|:------------------:|
 | ESP-PSRAM32  | 4MByte          | 1.8V               |
 | ESP-PSRAM32H | 4MByte          | 3.3V               |
@@ -69,7 +69,7 @@ Below are the main parameters related to PSRAM, along with a brief description o
 
 ### 4.1. ESP_SPIRAM
 
-This configuration parameter enables support for an external SPI RAM chip, connected in parallel with the main SPI flash chip. If enabled it automatically enables CONFIG_SHARED_MULTI_HEAP.
+This configuration parameter enables support for an external SPI RAM chip, connected in parallel with the main SPI flash chip. If enabled, it automatically enables CONFIG_SHARED_MULTI_HEAP.
 
 ### 4.2. ESP_HEAP_SEARCH_ALL_REGIONS
 
@@ -81,7 +81,7 @@ This configuration parameter specifies SPIRAM heap size.
 
 ### 4.4. ESP_SPIRAM_MEMTEST
 
-This configuration parameter controls SPIRAM memory test during initialization. It is enabled by default and can be disabled to permits a faster stasrtup.
+This configuration parameter controls SPIRAM memory test during initialization. It is enabled by default and can be disabled for faster startup.
 
 ### 4.5. SPIRAM_MODE
 
@@ -116,7 +116,7 @@ This configuration parameter allows moving read-only data from FLASH to PSRAM. I
 
 ## 5. Installing Zephyr and its dependencies
 
-To install Zephyr RTOS and the necessary tools, follow the instructions in the Zephyr [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html). By the end of the process, you will have a command-line Zephyr development environment set up and ready to build your application with `west` tha is the meta-tool responsible for the build your application and flashing the generated binary, and other tasks.
+To install Zephyr RTOS and the necessary tools, follow the instructions in the Zephyr [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html). By the end of the process, you will have a command-line Zephyr development environment set up and ready to build your application with `west` — the meta-tool responsible for building your application and flashing the generated binary, and other tasks.
 
 Additionally, you need to execute the following command to prepare your environment for building applications for Espressif SoCs:
 
@@ -131,9 +131,9 @@ PSRAM memory blocks can be made available to applications through Zephyr's share
 
 When application needs a memory block allocated from PSRAM, it must call **shared_multi_heap_alloc()** whith **SMH_REG_ATTR_EXTERNAL** as a parameter. This function will return  an address pointing to a  memory block inside PSRAM. If an aligned memory block is required, **shared_multi_heap_aligned_alloc()** should be called instead.
 
-With the ownership of this memory block the application is granted permission to read from and write to its addresses. Once the memory block is no longer needed, it can be returned to the pool from which it was allocated by calling `shared_multi_heap_free()` and passing the pointer to the block as parameter.
+With the ownership of this memory block, the application is granted permission to read from and write to its addresses. Once the memory block is no longer needed, it can be returned to the pool from which it was allocated by calling `shared_multi_heap_free()` and passing the pointer to the block as a parameter.
 
-The following sample code shows how to use Zephyr's shared multi-heap API to allocate, use and free memory from PSRAM:
+The following sample code shows how to use Zephyr's shared multi-heap API to allocate, use, and free memory from PSRAM:
 
 prj.conf:
 
@@ -201,13 +201,13 @@ west build -b esp32s3_devkitc/esp32s3/procpu <project folder path> --pristine
 ```
 This command will create a directory called `build`, which will contain the binary file of our sample along with other intermediate files produced during the building process
 
-To flash the generated binary into the `ESP32-S3-DevKitC-1` board:
+To flash the generated binary into the `ESP32-S3-DevKitC-1` board, run:
 
 ```sh
 west flash
 ```
 
-To open a console and see the log messages produced during the sample execution:
+To open a console and see the log messages produced during the sample execution, run:
 
 ```sh
 west espressif monitor
@@ -272,7 +272,7 @@ I (708) heap_runtime: ESP heap runtime init at 0x3fcacae0 size 243 kB.
 [00:00:00.708,000] <inf> PSRAM_SAMPLE: Sample finished successfully!
 ```
 
-Once the sample finishes executing successfully, we can conclude that the memory allocated from PSRAM was read and written without any issues.
+Once the sample finishes executing successfully, we can conclude that the memory allocated from PSRAM was read and written to without any issues.
 
 ## 7. Integrating PSRAM memory as a section into the memory map
 
@@ -328,15 +328,15 @@ int main(void)
 }
 ```
 
-To build a project containing these two files targeting a **ESP32-S3-DevKitC-1** board:
+To build a project containing these two files targeting a **ESP32-S3-DevKitC-1** board, run:
 
 ```sh
 $ west build -b esp32s3_devkitc/esp32s3/procpu <project folder path> --pristine
 ```
 
-This command will create a directory called **build**, which will contain the binary file of our sample along with other intermediate files produced during the building process
+This command will create a directory called **build**, which will contain the binary file of our sample along with other intermediate files produced during the building process.
 
-Before continue, let's take a look inside the `build/zephyr/zephyr.map` file:
+Before we move on, let's take a look inside the `build/zephyr/zephyr.map` file:
 
 ```
 ...
